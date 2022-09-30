@@ -1,0 +1,18 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  color: #FF4081;
+}
+
+.navbar-dark {
+  background-color: #009688;
+}
+
+.btn-primary{
+  background: #FF4081;
+}
+
