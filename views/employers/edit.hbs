@@ -1,0 +1,20 @@
+<h1>Employer details</h1>
+<form method="post">
+    <fieldset>
+        <label for="name" class="col-2">Name: *</label>
+        <input name="name" id="name" required value="{{employer.name}}" />
+    </fieldset>
+    <fieldset>
+        <label for="region" class="col-2">Region: *</label>
+        <select name="region" id="region" required>
+            {{#each regions}}
+            {{selectCorrectOption this.name ../employer.region}}
+            {{/each}}
+        </select>
+    </fieldset>
+    <fieldset>
+        <label for="description" class="col-2">Description: *</label>
+        <textarea name="description" id="description" required>{{employer.description}}</textarea>
+    </fieldset>
+    <button class="btn btn-primary">Save</button>
+</form>

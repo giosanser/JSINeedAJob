@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   font-family: 'Open Sans', sans-serif;
 }
@@ -12,11 +11,19 @@ a {
   background-color: #009688;
 }
 
-.btn-primary{
+.btn-primary {
   background: #FF4081;
 }
 
+.btn-primary:hover {
+  background: #009688 !important;
+}
 
+main {
+  padding-top: 20px;
+  padding-left: 50px;
+}
 
-
-
+fieldset {
+  padding: 5px;
+}
