@@ -1,0 +1,11 @@
+<h1>Regions</h1>
+<a class="btn btn-secondary" href="/regions/create">Add a New region</a>
+<section class="row">
+    {{#each regions}}
+    <div class="card col-3 m-2">
+        <div class="card-body text-center h-100">
+            <h5 class="card-title">{{this.name}}</h5>
+        </div>
+    </div>
+    {{/each}}
+</section>

@@ -6,9 +6,9 @@ const mongoose = require('mongoose')
 var regionSchema = new mongoose.Schema({
     name: {
         type: String,
-        requiered: 'Region name is required'
+        required: 'Region name is required'
     }
 })
 
 //make public
-module.exports = mongoose.Model('Region', regionSchema)
+module.exports = mongoose.model('Region', regionSchema)
