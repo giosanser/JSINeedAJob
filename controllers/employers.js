@@ -3,6 +3,15 @@ const router = express.Router()
 //import employer model
 const Employer = require('../models/employer')
 const Region = require('../models/region')
+const pasport = require('passport')
+
+// auth check to be called before any CUD method
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect('/auth/login')
+}
 
 //GET: /employers/ show list
 router.get('/', (req, res) => {
@@ -14,7 +23,8 @@ router.get('/', (req, res) => {
         else {
             res.render('employers/index', {
                 title: 'Employers',
-                employers: employers
+                employers: employers,
+                user: req.user
             })
         }
 
@@ -24,7 +34,7 @@ router.get('/', (req, res) => {
 
 
 //GET: employers/create => show blank employer form
-router.get('/create', (req, res) => {
+router.get('/create', isAuthenticated, (req, res) => {
     //get regions for Form dropdown
     Region.find((err, regions) => {
         if (err) {
@@ -33,7 +43,8 @@ router.get('/create', (req, res) => {
         else {
             res.render('employers/create', {
                 title: 'Add Employer',
-                regions: regions
+                regions: regions,
+                user: req.user
             })
         }
     }).sort('name')
@@ -42,7 +53,7 @@ router.get('/create', (req, res) => {
 
 
 //POST: /employers/create => process form submission
-router.post('/create', (req, res) => {
+router.post('/create', isAuthenticated, (req, res) => {
     //create a new employer document from the fields in the form post
     Employer.create(req.body, (err, newEmployer) => {
         if (err) {
@@ -55,7 +66,7 @@ router.post('/create', (req, res) => {
 })
 
 // GET /employers/delete/abc123 => remove selected employer
-router.get('/delete/:_id', (req, res) => {
+router.get('/delete/:_id', isAuthenticated, (req, res) => {
     Employer.remove({ _id: req.params._id }, (err) => {
         if (err) {
             console.log(err)
@@ -67,7 +78,7 @@ router.get('/delete/:_id', (req, res) => {
 })
 
 // GET: /employers/edit/abc123 => display populated form for editing
-router.get('/edit/:_id', (req, res) => {
+router.get('/edit/:_id', isAuthenticated, (req, res) => {
     //get regions for Form dropdown
     Region.find((err, regions) => {
         if (err) {
@@ -83,7 +94,8 @@ router.get('/edit/:_id', (req, res) => {
                     res.render('employers/edit', {
                         title: 'Employer Details',
                         regions: regions,
-                        employer: employer
+                        employer: employer,
+                        user: req.user
                     })
                 }
             })
@@ -93,7 +105,7 @@ router.get('/edit/:_id', (req, res) => {
 })
 
 // POST: /employers/edit
-router.post('/edit/:_id', (req, res) => {
+router.post('/edit/:_id', isAuthenticated, (req, res) => {
     Employer.findByIdAndUpdate({ _id: req.params._id }, req.body, null, (err, employer) => {
         if (err) {
             console.log(err)

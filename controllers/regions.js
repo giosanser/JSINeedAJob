@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
         else {
             res.render('regions/index', {
                 title: 'Regions',
-                regions: regions
+                regions: regions,
+                user: req.user
             })
         }
 
@@ -24,7 +25,10 @@ router.get('/', (req, res) => {
 
 //GET: regions/create => show blank region form
 router.get('/create', (req, res) => {
-    res.render('regions/create', { title: 'Add Region' })
+    res.render('regions/create', {
+        title: 'Add Region',
+        user: req.user
+    })
 })
 
 
