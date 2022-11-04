@@ -92,5 +92,17 @@ router.get('/edit/:_id', (req, res) => {
     }).sort('name')
 })
 
+// POST: /employers/edit
+router.post('/edit/:_id', (req, res) => {
+    Employer.findByIdAndUpdate({ _id: req.params._id }, req.body, null, (err, employer) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.redirect('/employers')
+        }
+    })
+})
+
 //make public
 module.exports = router
