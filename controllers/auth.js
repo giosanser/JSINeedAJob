@@ -26,17 +26,16 @@ router.post('/register', (req, res) => {
 
 //GET: /auth/login => show register form
 router.get('/login', (req, res) => {
-    //if there any session messages, store them in a local var
+    // if there are any session messages, store them in a local var
     let messages = req.session.messages || []
 
+    // clear the session error messages
+    req.session.messages = []
 
-    res.render('auth/login'), {
+    res.render('auth/login', { 
         title: 'Login',
         messages: messages
-    }
-
-    //clear messages
-    req.session.messages = []
+    })
 })
 
 //POST: /auth/login => use passport to do auth check
