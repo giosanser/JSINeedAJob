@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 //import region model
 const Region = require('../models/region')
+//import globalfunctions
+const globals = require('./globalFunctions')
 
 //GET: /regions/ show list
 router.get('/', (req, res) => {
@@ -24,7 +26,7 @@ router.get('/', (req, res) => {
 
 
 //GET: regions/create => show blank region form
-router.get('/create', (req, res) => {
+router.get('/create', globals.isAuthenticated, (req, res) => {
     res.render('regions/create', {
         title: 'Add Region',
         user: req.user
@@ -33,7 +35,7 @@ router.get('/create', (req, res) => {
 
 
 //POST: /regions/create => process form submission
-router.post('/create', (req, res) => {
+router.post('/create', globals.isAuthenticated, (req, res) => {
     //create a new region document from the fields in the form post
     Region.create(req.body, (err, newRegion) => {
         if (err) {

@@ -1,5 +1,7 @@
 <h1>Regions</h1>
-<a class="btn btn-secondary" href="/regions/create">Add a New region</a>
+{{#if user}}
+    <a class="btn btn-secondary" href="/regions/create">Add a New Region</a>
+{{/if}}
 <section class="row">
     {{#each regions}}
     <div class="card col-3 m-2">
