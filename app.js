@@ -38,6 +38,24 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+// google auth config
+const google = require('passport-google-oauth20').Strategy
+passport.use(new google({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL
+},
+  (accessToken, refreshToken, profile, done) => {
+    User.findOrCreate({ oauthId: profile.id }, {
+      username: profile.displayName,
+      oauthProvider: 'Google',
+      created: Date.now()
+    }, (err, user) => {
+      return done(err, user)
+    })
+  }
+))
+
 const mongoose = require('mongoose');
 const { hasSubscribers } = require('diagnostics_channel');
 mongoose.connect(process.env.DATABASE_URL)

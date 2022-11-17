@@ -5,6 +5,7 @@ const Region = require('../models/region')
 //import globalfunctions
 const globals = require('./globalFunctions')
 
+
 //GET: /regions/ show list
 router.get('/', (req, res) => {
     //query the model to fecth & pass the data to the view
